@@ -1,6 +1,6 @@
 flagged/
 .env
-pycache
+*pycache*
 tmp
 temp
 .idea/

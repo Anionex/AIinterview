@@ -1,16 +1,12 @@
 is_quit = 0
 import gradio as gr
-
+from openai import OpenAI
 def stop_generation():
     global is_quit
     is_quit = 1
 
 
 def api_test(context, model):
-
-
-    from openai import OpenAI
-    import os
 
     client = OpenAI(base_url="https://api.link-ai.chat/v1")
 

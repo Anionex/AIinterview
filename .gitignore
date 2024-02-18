@@ -1,0 +1,6 @@
+flagged/
+.env
+pycache
+tmp
+temp
+.idea/

@@ -10,9 +10,9 @@ import chat_channel
 
 
 def main():
-    my_chatbot =gr.Chatbot(
+    my_chatbot = gr.Chatbot(
             show_copy_button=True,
-            avatar_images=("./favicon.ico", None),
+            avatar_images=("https://cdn-icons-png.flaticon.com/512/4472/4472507.png", "https://cdn-icons-png.flaticon.com/512/3662/3662817.png"),
 
         )
     print(my_chatbot.get_block_name())
@@ -22,10 +22,10 @@ def main():
         textbox=gr.Textbox(
             placeholder=""
         ),
-        additional_inputs=[gradio.Dropdown(choices=["gpt-4-turbo", "gpt-4", "gpt-4V"])],
+        additional_inputs=[gradio.Dropdown(label="model", choices=["gpt-4-turbo", "gpt-4", "gpt-4V"])],
         theme="NoCrypt/miku",
         title="chat_demo"
-    ).launch(share=False,favicon_path="./favicon.ico")
+    ).launch(share=False, favicon_path="./favicon.ico")
 
 
 if __name__ == '__main__':

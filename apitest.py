@@ -1,3 +1,5 @@
+import os
+
 is_quit = 0
 import gradio as gr
 from openai import OpenAI
@@ -8,7 +10,7 @@ def stop_generation():
 
 def api_test(context, model):
 
-    client = OpenAI(base_url="https://api.link-ai.chat/v1")
+    client = OpenAI(base_url=os.getenv("OPENAI_API_BASE"))
 
     stream = client.chat.completions.create(
       model=model,

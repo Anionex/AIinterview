@@ -1,3 +1,6 @@
+# gradio程序在运行时会生成不止一个实例，但是全局变量不会生成新的实例
+
+
 import gradio as gr
 import os
 import dotenv
@@ -63,16 +66,16 @@ def main():
             # gr.Markdown("![](https://img.shields.io/badge/model-gpt4-purple?logo=openai "")")
 
 
-        msg.submit(bot, [msg, chatbot, model_selector], outputs=[msg, chatbot])
-        submit_btn.click(bot, [msg, chatbot, model_selector], outputs=[msg, chatbot])
+        msg.submit(bot, [msg, chatbot, model_selector, job, job_desc, job_require], outputs=[msg, chatbot])
+        submit_btn.click(bot, [msg, chatbot, model_selector, job, job_desc, job_require], outputs=[msg, chatbot])
         # 如果chatbot选项变成NOne 会怎么样？
         # # file_msg = file_upload_btn.upload(add_file, [chatbot, file_upload_btn], [chatbot], queue=False).then(
         #     bot, [chatbot, model_selector], chatbot
         # )
-        job_desc.change(chat_channel.change_job_desc, job_desc, None)
-        job_require.change(chat_channel.change_job_require, job_require, None)
-        job.change(chat_channel.change_job, job, None)
-    demo.queue()
+        # job_desc.change(chat_channel.change_job_desc, job_desc, None)
+        # job_require.change(chat_channel.change_job_require, job_require, None)
+        # job.change(chat_channel.change_job, job, None)
+    demo.queue(default_concurrency_limit=5)
     demo.launch()
 
 if __name__ == '__main__':

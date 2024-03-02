@@ -3,32 +3,22 @@ import gradio as gr
 import os
 from openai import OpenAI
 
-
 def stop_generation():
     global is_quit
     is_quit = 1
 
-job = ""
-job_desc = ""
-job_require = ""
-def change_job_desc(job_desc_):
-    global job_desc
-    job_desc = job_desc_
+
+class BotInfo:
+    def __init__(self):
+        self.job = self.job_desc = self.job_require = ""
 
 
-def change_job(job_):
-    global job
-    job = job_
+#bug 多人使用提示词冲突 -> 解决方案，不用中间变量存储字符串，直接利用gradio创建的实例作为传入
+def bot(message, history, model, job, job_desc, job_require):
+    # job = kwargs["job"]
+    # job_desc = kwargs["job_desc"]
+    # job_require = kwargs["job_require"]
 
-
-def change_job_require(job_require_):
-    global job_require
-    job_require = job_require_
-
-
-
-
-def bot(message, history, model):
     system_prompt = "面试职位:\n" + job + "职位描述:\n" + job_desc + "\n" + "职位要求：\n" + job_require + "\n"
     identity = "请你作为一名任何领域的专业面试官，根据[面试职位]、[职位描述]和[职位要求]面试前来的应聘者。"
     flow = "你们的面试采用一问一答的形式，一开始你会根据[面试职位]、[职位描述]和[职位要求]提醒应聘者应聘本职位的一些注意事项，并紧接着进入角色，问出面试的第一个问题。当应聘者说“停止面试”，你会告诉应聘者是否被聘用以及被或不被聘用的原因，并紧接着退出角色，复盘本次面试是否达到要求。"
